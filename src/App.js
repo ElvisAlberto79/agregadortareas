@@ -1,5 +1,6 @@
 import Cabecera from './components/Cabecera';
 import Tareas from './components/Tareas';
+import AddTarea from './components/AddTarea';
 import { useState } from 'react';
 
 
@@ -43,6 +44,7 @@ const toggleReminder = (id)=>{
   return (
     <div className="App">
       <Cabecera titulo="Buscador de Tareas"/>
+      <AddTarea />
       {tasks.length > 0 ? 
         <Tareas tasks={tasks} 
           onDelete={deleteTask}
