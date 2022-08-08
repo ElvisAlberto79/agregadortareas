@@ -1,11 +1,24 @@
 import { useState } from 'react';
 
-export default function AddTarea() {
+export default function AddTarea( {onAdd} ) {
+    
     const [text, setText]= useState('');
     const [day, setDay]= useState('');
     const [reminder, setReminder]= useState(false);
+
+const onSubmit= (e)=>{
+    e.preventDefault();
+    if (!text){
+        alert("Por favor ingresar un texto para la tarea.");
+        return
+    }
+    onAdd({text, day, reminder});
+    setText('');
+    setDay('');
+    setReminder(false);
+}
   return (
-    <form className="add-form">
+    <form className="add-form" onSubmit={onSubmit}>
         <div className="form-control">
             <label>Tarea</label>
             <input 
@@ -28,6 +41,7 @@ export default function AddTarea() {
             <label>Recordatorio</label>
             <input 
                 type="checkbox" 
+                checked={reminder}
                 value={reminder}
                 onChange={(e)=>setReminder(e.currentTarget.checked)}
             />

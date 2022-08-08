@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 
 function App() {
+  const [showAdd, setShowAdd] = useState(false);
   const [tasks, setTasks] = useState([
     {
         id: 1,
@@ -32,6 +33,12 @@ function App() {
     }
 ]
 )
+//AGREGANDO TARREAS
+const agregarTarea = (task)=>{
+  const id = Math.floor(Math.random()*10000)+1;
+  const newTask = {id, ...task};
+  setTasks([...tasks, newTask]);
+}
 //BORRANDO TAREAS
 const deleteTask = (id)=>{
   setTasks(tasks.filter((task)=>task.id!==id))
@@ -43,8 +50,11 @@ const toggleReminder = (id)=>{
 
   return (
     <div className="App">
-      <Cabecera titulo="Buscador de Tareas"/>
-      <AddTarea />
+      <Cabecera titulo="Buscador de Tareas" 
+        onAdd={()=>setShowAdd(!showAdd)}
+        showAdd={showAdd}
+      />
+      {showAdd && <AddTarea onAdd = {agregarTarea}/>}
       {tasks.length > 0 ? 
         <Tareas tasks={tasks} 
           onDelete={deleteTask}
